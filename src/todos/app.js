@@ -27,7 +27,7 @@ export const App = (elementId) => {
     })();
 
     // Referent HTML
-    const newTodoInputDescription = document.querySelector( ElementIDs.todoInputId );
+    const newTodoInputDescription = document.querySelector( ElementIDs.TodoInputId );
 
     // Listeners
     newTodoInputDescription.addEventListener('keyup', (e) => {
