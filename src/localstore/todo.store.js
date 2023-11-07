@@ -52,7 +52,7 @@ const toggleTodo = ( todoId ) => {
             if ( todo.id === todoId ) {
                 todo.done = !todo.done;
             }
-            return ;
+            return todo;
         })
 }
 
