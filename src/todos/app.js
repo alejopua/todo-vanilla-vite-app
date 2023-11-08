@@ -5,6 +5,7 @@ import { renderTodos } from './usecases';
 const ElementIDs = {
     TodoList: '.todo-list',
     TodoInputId: '.new-todo',
+    DeleteTodo: '.destroy',
 }
 
 /**
@@ -29,6 +30,7 @@ export const App = (elementId) => {
     // Referent HTML
     const newTodoInputDescription = document.querySelector( ElementIDs.TodoInputId );
     const todoUList = document.querySelector( ElementIDs.TodoList );
+    const deleteTodoIdList = document.querySelector( ElementIDs.DeleteTodo );
 
     // Listeners
     newTodoInputDescription.addEventListener('keyup', (e) => {
@@ -42,8 +44,16 @@ export const App = (elementId) => {
 
     todoUList.addEventListener('click', (e) => {
         const element = e.target.closest('[data-id]');
-        const id = element.getAttribute('data-id');
-        todoStore.toggleTodo( id );
+        todoStore.toggleTodo( element.getAttribute('data-id') );
         displayTodos();
+    })
+
+    todoUList.addEventListener('click', (e) => {
+        const isDeleteElement = e.target.className === 'destroy';
+        const elementId = e.target.closest('[data-id]');
+        if ( !elementId || !isDeleteElement ) return;
+        todoStore.deleteTodo( elementId.getAttribute('data-id') );
+        displayTodos();
+
     })
 }
