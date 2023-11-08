@@ -68,7 +68,6 @@ export const App = (elementId) => {
         item.addEventListener('click', (e) => {
             filterTodoList.forEach( item => item.classList.remove('selected'))
             e.target.classList.add('selected');
-            console.log(e.target.text)
             switch (e.target.text) {
                 case 'Todos':
                     todoStore.selectFilter( Filters.All )
