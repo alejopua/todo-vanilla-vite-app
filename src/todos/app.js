@@ -5,7 +5,7 @@ import { renderTodos } from './usecases';
 const ElementIDs = {
     TodoList: '.todo-list',
     TodoInputId: '.new-todo',
-    DeleteTodo: '.destroy',
+    ClearCompleted: '.clear-completed',
 }
 
 /**
@@ -21,6 +21,7 @@ export const App = (elementId) => {
 
     //when the app() function is called.
     (()=> {
+        todoStore.initStore()
         const app = document.createElement('div'); // create a div element
         app.innerHTML = html; // set the innerHTML of the div to the html string
         document.querySelector(elementId).appendChild(app); // append the div to the element with the id passed to the function
@@ -30,7 +31,7 @@ export const App = (elementId) => {
     // Referent HTML
     const newTodoInputDescription = document.querySelector( ElementIDs.TodoInputId );
     const todoUList = document.querySelector( ElementIDs.TodoList );
-    const deleteTodoIdList = document.querySelector( ElementIDs.DeleteTodo );
+    const clearCompletedButton = document.querySelector( ElementIDs.ClearCompleted );
 
     // Listeners
     newTodoInputDescription.addEventListener('keyup', (e) => {
@@ -54,6 +55,10 @@ export const App = (elementId) => {
         if ( !elementId || !isDeleteElement ) return;
         todoStore.deleteTodo( elementId.getAttribute('data-id') );
         displayTodos();
+    })
 
+    clearCompletedButton.addEventListener('click', () => {
+        todoStore.deleteCompleted()
+        displayTodos();
     })
 }
