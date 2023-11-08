@@ -1,21 +1,13 @@
 import { Todo } from '../todos/models/todo.model';
 
-const Filters = {
+export const Filters = {
     All: 'All',
     Completed: 'Completed',
     Pending: 'Pending'
 }
 
 const state = {
-    todos: [
-        new Todo('soul stone'),
-        new Todo('infinity stone'),
-        new Todo('time stone'),
-        new Todo('sky stone'),
-        new Todo('tree stone'),
-        new Todo('house stone'),
-
-    ],
+    todos: [],
     filter: Filters.All,
 }
 
@@ -76,7 +68,7 @@ const deleteCompleted = () => {
 }
 
 const selectFilter = ( newFilter = Filters.All ) => {
-    Object.keys(newFilter).includes(newFilter) ? state.filter = newFilter : state.filter = Filters.All;
+    Object.keys(Filters).includes(newFilter) ? state.filter = newFilter : state.filter = Filters.All;
     saveStateToLocalStorage();
 }
 
