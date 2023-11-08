@@ -1,12 +1,13 @@
 import html from './app.html?raw'; // raw is used to import the html as a string
 import todoStore, { Filters } from '../localstore/todo.store'; // import the todoStore
-import { renderTodos } from './usecases';
+import { renderPendingTodos, renderTodos } from './usecases';
 
 const ElementIDs = {
     TodoList: '.todo-list',
     TodoInputId: '.new-todo',
     ClearCompleted: '.clear-completed',
-    FilterTodos: '.filter'
+    FilterTodos: '.filter',
+    PendingTodos: '#pending-count'
 }
 
 /**
@@ -15,9 +16,15 @@ const ElementIDs = {
  */
 export const App = (elementId) => {
 
+    //Update pending todos function
+    const updatePendingTodos = () => {
+        renderPendingTodos( ElementIDs.PendingTodos );
+    }
+
     const displayTodos = () => { // function to render the todos in the list 
         const todos = todoStore.getTodos( todoStore.getCurrentFilter() ); // get the todos from the store
         renderTodos( ElementIDs.TodoList, todos ); // render the todos to the element with the id passed to the function (ElementIDs.TodoList) 
+        updatePendingTodos();
     }
 
     //when the app() function is called.
@@ -80,7 +87,6 @@ export const App = (elementId) => {
                     break;
             }
             displayTodos();
-
         })
 
     })
